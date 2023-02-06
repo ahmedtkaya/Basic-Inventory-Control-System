@@ -1,6 +1,14 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using InventoryControl.Models;
+using InventoryControl.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
+builder.Services.Configure<InventoryControlDatabaseSettings>(
+    builder.Configuration.GetSection("InventoryControlDatabase"));
+
+builder.Services.AddSingleton<ProductsService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

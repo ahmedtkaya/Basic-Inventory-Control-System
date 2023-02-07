@@ -7,14 +7,12 @@ namespace InventoryControl.Services
 	public class ProductsService
 	{
 		private readonly IMongoCollection<Products> _productsCollection;
-		private readonly IMongoCollection<Category> _categoryCollection;
 
 		public ProductsService(IOptions<InventoryControlDatabaseSettings> inventoryControlDatabaseSettings)
 		{
 			var mongoClient = new MongoClient(inventoryControlDatabaseSettings.Value.ConnectionString);
 			var mongoDatabase =  mongoClient.GetDatabase(inventoryControlDatabaseSettings.Value.DatabaseName);
 			_productsCollection = mongoDatabase.GetCollection<Products>(inventoryControlDatabaseSettings.Value.ProductsCollectionName);
-			_categoryCollection = mongoDatabase.GetCollection<Category>(inventoryControlDatabaseSettings.Value.CategoryCollectionName);
 		}
 
 		public async Task<List<Products>> GetProductAsync() =>
